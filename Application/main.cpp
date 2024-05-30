@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -12,10 +13,11 @@ int main(int argc, char *argv[])
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
         const QString baseName = "Application_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
+        if (translator.load(qApp->applicationDirPath()+"/../../" + baseName)) {
             a.installTranslator(&translator);
             break;
         }
+
     }
 
     MainWindow w;

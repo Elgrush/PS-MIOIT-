@@ -51,7 +51,7 @@ else()
         )
     endif()
 
-    qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+    qt6_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
 target_link_libraries(Application PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
