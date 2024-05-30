@@ -3,19 +3,9 @@
 
 Motor::Motor() {}
 
-uint8_t Motor::getLimit(const double &nominalVoltage, const double & minimumVoltage, const double & speed, const double & upperSpeedLimit)
+uint8_t Motor::getLimit(const double & speed, const double & speedUpperLimit)
 {
-    double V = minimumVoltage*(speed/upperSpeedLimit*2)*(speed/upperSpeedLimit*2);
+    qDebug() << (uint8_t)(speed/speedUpperLimit*255);
 
-    double mPart = V/nominalVoltage;
-
-    qDebug() << V;
-
-    double limitd = speed/upperSpeedLimit*(1-mPart);
-
-    limitd += mPart;
-
-    qDebug() << limitd*255;
-
-    return limitd*255;
+    return speed/speedUpperLimit*255;
 }

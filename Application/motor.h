@@ -8,7 +8,7 @@ class Motor
 private:
     Motor();
 public:
-    static uint8_t getLimit(const double &nominalVoltage, const double & minimumVoltage, const double & speed, const double & upperSpeedLimit);
+    static uint8_t getLimit(const double & speed, const double & speedUpperLimit);
 };
 
 #endif // MOTOR_H

@@ -86,14 +86,13 @@ void MainWindow::timerEvent(QTimerEvent *e) {
 
 void MainWindow::on_togglePushButton_released()
 {
-    qDebug() << "Running";
     if(!opened)
     {
         opened = port->open(QIODevice::ReadWrite);
     }
     if(opened)
     {
-        uint8_t d = Motor::getLimit(12, 1, ui->cVelocity->value(), 182);
+        uint8_t d = Motor::getLimit(ui->cVelocity->value(), 182);
 
         port->write((char*)(&d), sizeof(d));
     }
