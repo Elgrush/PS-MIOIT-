@@ -12,7 +12,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools SerialPort Core Xml)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools SerialPort Core Xml)
 
-set(TS_FILES Application_ru_RU.ts)
+set(TS_FILES Application_ru_RU.ts
+    Application_de_DE.ts)
 
 set(PROJECT_SOURCES
         main.cpp
