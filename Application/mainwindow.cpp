@@ -92,7 +92,7 @@ void MainWindow::on_togglePushButton_released()
     }
     if(opened)
     {
-        uint8_t d = Motor::getLimit(ui->cVelocity->value(), 182);
+        uint8_t d = Motor::getLimit(ui->cVelocity->value(), ui->tVelocity->value());
 
         port->write((char*)(&d), sizeof(d));
     }
