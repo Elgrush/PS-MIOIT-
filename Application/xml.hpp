@@ -8,8 +8,8 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-bool writeXmlFile(QString fileName, QString maxValue, QString minValue);
+bool writeXmlFile(QString fileName, QString maxValue, QString minValue, QString wHeight, QString wWidth, QString x, QString y, QString Period, QString lang);
 
-bool parseXmlFile(QString fileName, QString *maxValue, QString *minValue);
+bool parseXmlFile(QString fileName, QString *maxValue, QString *minValue, QString *wHeight, QString *wWidth, QString *x, QString *y,  QString *Period, QString *lang);
 
 #endif // XML_HPP

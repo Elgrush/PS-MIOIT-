@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "xml.hpp"
 #include "motor.h"
+#include <QTranslator>
 
 void checkForColours(Ui::MainWindow *ui)
 {
@@ -50,12 +51,23 @@ MainWindow::MainWindow(QWidget *parent)
         startTimer(1000);
     }
 
-    QString sa, sb;
+    QString sa, sb, wh, ww, x, y, Period, lang;
 
-    if(parseXmlFile(QString("settings.xml"), &sa, &sb))
+
+    if(parseXmlFile(QString("settings.xml"), &sa, &sb, &wh, &ww, &x, &y, &Period, &lang))
     {
         ui->tVelocity->setValue(std::stod(sa.toStdString()));
         ui->mVelocity->setValue(std::stod(sb.toStdString()));
+        ui->cPeriod->setValue(std::stod(Period.toStdString()));
+        this->setGeometry(std::stod(x.toStdString()), std::stod(y.toStdString()), std::stod(ww.toStdString()), std::stod(wh.toStdString()));
+
+        const QString baseName = "Application_" + lang;
+        if (translator.load(qApp->applicationDirPath()+"/../../" + baseName)) {
+            qApp->installTranslator(&translator);
+            qDebug() << baseName;
+            ui->retranslateUi(this);
+        }
+
     }
 
     checkForColours(ui);
@@ -65,7 +77,10 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
 
-    if(writeXmlFile(QString("settings.xml"), ui->tVelocity->textFromValue(ui->tVelocity->value()), ui->mVelocity->textFromValue(ui->mVelocity->value()))){}
+    writeXmlFile(QString("settings.xml"), ui->tVelocity->textFromValue(ui->tVelocity->value()), ui->mVelocity->textFromValue(ui->mVelocity->value()),
+                 ui->mVelocity->textFromValue(this->geometry().height()), ui->mVelocity->textFromValue(this->geometry().width()),
+                 ui->mVelocity->textFromValue(this->pos().x()), ui->mVelocity->textFromValue(this->pos().y()),
+                 ui->cPeriod->textFromValue(ui->cPeriod->value()), lang);
 
     delete ui;
     if (opened) {
@@ -92,9 +107,11 @@ void MainWindow::on_togglePushButton_released()
     }
     if(opened)
     {
-        uint8_t d = Motor::getLimit(ui->cVelocity->value(), ui->tVelocity->value());
+        uint8_t d = Motor::getLimit(ui->cVelocity->value(), ui->tVelocity->value(), ui->cPeriod->value());
+        uint8_t period = ui->cPeriod->value();
 
         port->write((char*)(&d), sizeof(d));
+        port->write((char*)(&period), sizeof(period));
     }
 
 }
@@ -113,3 +130,21 @@ void MainWindow::on_mVelocity_valueChanged(double arg1)
 {
     checkForColours(ui);
 }
+
+void MainWindow::on_ru_clicked()
+{
+    lang = "ru_RU";
+}
+
+
+void MainWindow::on_en_clicked()
+{
+    lang = "en_US";
+}
+
+
+void MainWindow::on_de_clicked()
+{
+    lang = "de_DE";
+}
+

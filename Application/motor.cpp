@@ -3,9 +3,9 @@
 
 Motor::Motor() {}
 
-uint8_t Motor::getLimit(const double & speed, const double & speedUpperLimit)
+uint8_t Motor::getLimit(const double & speed, const double & speedUpperLimit, const int & period)
 {
-    qDebug() << (uint8_t)(speed/speedUpperLimit*255);
+    qDebug() << (uint8_t)(speed/speedUpperLimit*period);
 
-    return speed/speedUpperLimit*255;
+    return speed/speedUpperLimit*period;
 }

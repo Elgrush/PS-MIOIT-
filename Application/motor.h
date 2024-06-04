@@ -8,7 +8,7 @@ class Motor
 private:
     Motor();
 public:
-    static uint8_t getLimit(const double & speed, const double & speedUpperLimit);
+    static uint8_t getLimit(const double & speed, const double & speedUpperLimit, const int & period);
 };
 
 #endif // MOTOR_H

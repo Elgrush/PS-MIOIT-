@@ -6,6 +6,7 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
 #include <QIODevice>
+#include <QTranslator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,11 +31,18 @@ private slots:
 
     void on_tVelocity_valueChanged(double arg1);
 
+    void on_ru_clicked();
+
+    void on_en_clicked();
+
+    void on_de_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSerialPort* port;
     bool opened;
-
+    QTranslator translator;
+    QString lang;
     void timerEvent(QTimerEvent *e) override;
 
 };
